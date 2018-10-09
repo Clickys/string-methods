@@ -1,0 +1,74 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // charAt() method returns a new string consisting of the single UTF-16 code unit located at the specified offset into the string.
+
+    // Prototype function 
+
+
+
+    // Function signature 
+    // fill(string, index);
+
+    // Function Parameters 
+    // index -> An integer between 0 and string.length - 1. If no index is provided, the default is 0, so the first character in the string is returned.
+
+
+    // Return value 
+    // A string representing the character 
+
+    // Requirements 
+
+    // 1. It should return a string.
+    // 2. It should pass an index argument that specify which character to return.
+    // 3. If no index is provided, the default is 0, so the first character in the string is returned.
+    // 4. If the index you supply is out of this range, JavaScript returns an empty string.
+
+    function charAt(string, index) {
+        let getChar = string[0];
+
+        if (index >= string.length || index < 0) {
+            return '';
+        }
+
+        for (let i = index; i < index + 1; i++) {
+            getChar = string[i];
+        }
+
+        return getChar;
+    }
+    tests({
+
+        '1. It should return a string.': function () {
+            let charAtReturn = charAt('string');
+
+            eq(typeof charAtReturn, 'string')
+
+        },
+        '2. It should pass an index argument that specify which character to return.': function () {
+            let charAtReturn = charAt('string', 2);
+
+            eq(charAtReturn, 'r');
+        },
+        '3. If no index is provided, the default is 0, so the first character in the string is returned.': function () {
+            let charAtReturn = charAt('string');
+            eq(charAtReturn, 's');
+        },
+        '4. If the index you supply is out of this range, JavaScript returns an empty string.': function () {
+            let charAtReturn = charAt('string', 15);
+            let charAtReturn1 = charAt('string', -10);
+            let charAtReturn2 = charAt('string', 6);
+
+            eq(charAtReturn, '');
+            eq(charAtReturn1, '');
+            eq(charAtReturn2, '');
+
+        },
+
+
+
+
+    });
+</script>
