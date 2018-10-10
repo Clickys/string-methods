@@ -7,10 +7,10 @@ This repository is about "recreating" array methods, and test them with jstinyte
 This project is about "recreating" string methods, and test them with jstinytest testing library. Creating step by step with simple testing cases most of the array methods. All the testing cases are made with Tiniest JavaScript unit testing library.
 String Methods
 
--   [] String.prototype.charAt()
--   [] String.prototype.charCodeAt()
--   [] String.prototype.concat()
--   [] String.prototype.endsWith()
+-   [x] String.prototype.charAt()
+-   [x] String.prototype.charCodeAt()
+-   [x] String.prototype.concat()
+-   [x] String.prototype.endsWith()
 -   [x] String.prototype.includes()
 -   [] String.prototype.indexOf()
 -   [] String.prototype.lastIndexOf()

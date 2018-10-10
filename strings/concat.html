@@ -1,0 +1,73 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // The concat() method concatenates the string arguments to the calling string and returns a new string.
+
+    // Function signature 
+    // concat(string, string2[, string3, ..., stringN])
+
+    // Function Parameters 
+    // string2 -> Strings to concatenate to this string.
+    // stringN -> Strings to concatenate to this string.
+
+    // Return value 
+    // A new string containing the combined text of the strings provided. 
+
+    // Requirements 
+    // 1. It should return a new string value.
+    // 2. It should accept a string as second argument of the function and concatenate them with the string that was called upon and return a new string.
+    // 3. It should accept and concatenate more than one string arguments.
+    // 4. It should not modify the string that called upon.
+
+    function concat(originalString) {
+        let newString = originalString;
+
+        if (arguments.length > 1) { // if optionalString arguments are passed
+            for (let i = 1; i < arguments.length; i++) { // 
+                newString += arguments[i];
+            }
+        }
+        return newString;
+    }
+
+    tests({
+
+        '1. It should return a new string value.': function () {
+            let concatReturnValue = concat('testString');
+            eq(typeof concatReturnValue, 'string');
+        },
+
+        '2. It should accept a string as first argument of the function and concatenate them with the string that was called upon.': function () {
+            let concatReturnValue = concat('i love', ' javascript');
+            eq(concatReturnValue, 'i love javascript');
+        },
+
+        '3. If no optionalString argument is passed it should return the originalString that was called upon': function () {
+            let concatReturnValue = concat('test');
+
+            eq(concatReturnValue, 'test');
+        },
+
+        '4. It should accept and concatenate more than one string arguments.': function () {
+            let string1 = 'I';
+            let string2 = 'Love';
+            let string3 = 'Javascript!';
+
+            let concatReturnValue = concat('', string1, string2, string3);
+
+            eq(concatReturnValue, 'ILoveJavascript!');
+        },
+
+
+        '5. It should not modify the string that called upon.': function () {
+            let testString = 'test';
+
+            concat(testString, 'change this!');
+
+            eq(testString, 'test');
+        },
+
+    });
+</script>

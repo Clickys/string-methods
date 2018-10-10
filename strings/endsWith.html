@@ -1,0 +1,81 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // The endsWith() method determines whether a string ends with the characters of a specified string, returning true or false as appropriate.
+
+    // Function signature 
+    // endsWith(originalString, searchString [, endLength])
+
+    // Function Parameters 
+    // searchString -> The characters to be searched for at the end of this string.
+    // optionalEndLength -> Optional. If provided it is used as the length of originalString.   
+
+    // Return value 
+    // true if the given characters are found at the end of the string; otherwise, false.
+
+    // Requirements 
+    // 1. It should return a boolean value. 
+    // 2. It should accept searchString as first argument, it should check if the originalString ends with the searchString characters.
+    // 3. It should have an optional endLength which fixed the originalString length to the number provided.
+    // 4. If omitted, the default value is the length of the string.
+
+
+    function endsWith(originalString, searchString = '', optionalEndLength) {
+        let searchStringLength = searchString.length;
+        let originalStringLength = optionalEndLength || originalString.length;
+
+        if (arguments.length === 1) {
+            return false;
+        }
+
+        for (let j = 0, i = originalStringLength - searchStringLength; i < originalStringLength; i++ , j++) {
+            if (originalString[i] !== searchString[j]) {
+                return false
+            }
+        }
+
+        return true;
+    }
+    tests({
+
+        '1. It should return a boolean value. ': function () {
+            let endsWithReturn = endsWith('originalString');
+            eq(typeof endsWithReturn, 'boolean');
+        },
+
+        '2. It should accept searchString as first argument, it should check if the originalString ends with the searchString characters.': function () {
+            let endsWithReturn = endsWith('originalString', 'ing');
+            let endsWithReturn1 = endsWith('this is a test', 'test');
+            let endsWithReturn2 = endsWith('this is a test.', 'test');
+            let endsWithReturn3 = endsWith('a b c d e', 'e');
+
+            eq(endsWithReturn, true);
+            eq(endsWithReturn1, true);
+            eq(endsWithReturn2, false);
+            eq(endsWithReturn3, true);
+        },
+
+        '3. It should have an optional endLength which fixed the originalString length to the number provided.': function () {
+            let endsWithReturn = endsWith('originalString', 'ing', 8);
+            let endsWithReturn1 = endsWith('originalString', 'S', 9);
+
+            eq(endsWithReturn, false);
+            eq(endsWithReturn1, true);
+        },
+
+        '4. If optional endLength is omitted, the default value is the length of the string.': function () {
+            let endsWithReturn = endsWith('originalString', 'ing');
+            eq(endsWithReturn, true);
+
+        },
+
+        '5. If searchString is not provided, it should return false': function () {
+            let endsWithReturn = endsWith('originalString');
+            eq(endsWithReturn, false);
+
+        },
+
+    });
+</script>
