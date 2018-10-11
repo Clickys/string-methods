@@ -1,0 +1,124 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // The indexOf() method returns the index within the calling String object of the first occurrence of the specified value, starting the search at fromIndex
+
+    // Function signature 
+    // indexOf(array, searchValue, [, fromIndex])
+
+    // Function Parameters 
+    // searchValue -> A string representing the value to search for.
+    // fromIndex -> An integer representing the index at which to start the search; the default value is 0.
+
+    // Return value 
+    // The index of the first occurrence of searchValue, or -1 if not found.
+
+    // Requirements 
+    // 1. It should accept a searchValue , which will search for that value in the string that was called upon. If exists it will return the index which start, otherwise will return -1.
+    // 2. It should have an optional searchIndex which will be the position that the search should start from.
+    // 3. If an empty string is provided for searchValue it should match at any index between 0 and str.length.
+    // 4. If fromIndex is value is negative, the search will start at index 0.
+    // 5. If originalString is empty it should return -1
+    // 6. If fromIndex value is greater than the originalString.length fromIndex will be equal to string.length.
+
+
+    function indexOf(originalString, searchValue, fromIndex = 0) {
+        let originalStringLength = originalString.length;
+        let searchValueFirstChar;
+        let searchValueLength;
+        let match = 0;
+
+
+        if (arguments.length > 2) { // If fromIndex is provided
+            if (fromIndex < 0) {
+                fromIndex = 0;
+            }
+        }
+
+        if (searchValue || searchValue === '') { // if searchValue pass to the function.
+            searchValueFirstChar = searchValue[0];
+            searchValueLength = searchValue.length;
+
+            if (searchValue === '') {
+                return 0;
+            }
+
+            for (let i = fromIndex; i < originalStringLength; i++) {
+                if (searchValueFirstChar === originalString[i]) {
+                    for (let c = 0, j = i; c < searchValueLength; j++ , c++) {
+                        if (originalString[j] === searchValue[c]) {
+                            match++;
+                        } else {
+                            match = 0;
+                            break;
+                        }
+                    }
+
+                    if (match === searchValueLength) {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+
+
+    tests({
+
+
+        '1. It should accept a searchValue , which will search for that value in the string that was called upon. If exists it will return the index which start, otherwise will return -1.': function() {
+            let originalString = 'Javascript';
+            let indexOfReturnValue = indexOf(originalString, 'Java');
+            let indexOfReturnValue1 = indexOf(originalString, 't');
+            let indexOfReturnValue2 = indexOf(originalString, 'A');
+            let indexOfReturnValue3 = indexOf(originalString, 'script');
+
+            eq(indexOfReturnValue, 0);
+            eq(indexOfReturnValue1, 9);
+            eq(indexOfReturnValue2, -1);
+            eq(indexOfReturnValue3, 4);
+        },
+
+        '2. It should have an optional searchIndex which will be the position that the search should start from.': function() {
+            let originalString = 'I love javascript';
+
+            let indexOfReturnValue = indexOf(originalString, 'love', 3);
+
+            eq(indexOfReturnValue, -1);
+        },
+
+        '3. If an empty string is provided for searchValue it should match at any index between 0 and str.length.': function() {
+            let originalString = 'I love javascript';
+
+            let indexOfReturnValue = indexOf(originalString, '');
+
+            eq(indexOfReturnValue, 0);
+        },
+
+        '4. If fromIndex is value is negative, the search will start at index 0.': function() {
+            let originalString = 'I love javascript';
+
+            let indexOfReturnValue = indexOf(originalString, 'I', -10);
+            eq(indexOfReturnValue, 0);
+        },
+
+        '5. If originalString is empty it should return -1': function() {
+            let indexOfReturnValue = indexOf('');
+
+            eq(indexOfReturnValue, -1);
+        },
+
+        '6. If fromIndex value is greater than the originalString.length fromIndex will be equal to string.length.': function() {
+            let indexOfReturnValue = indexOf('I Love Javascript', 15);
+
+            eq(indexOfReturnValue, -1);
+        },
+
+
+
+    });
+</script>

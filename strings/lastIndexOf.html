@@ -1,0 +1,109 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+
+    // The lastIndexOf() method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from fromIndex.
+
+    // Function signature 
+
+    // indexOf(array, searchValue, [, fromIndex])
+
+    // Function Parameters 
+    // searchValue -> A string representing the value to search for.
+    // fromIndex -> An integer representing the index at which to start the search; the default value is 0.
+
+    // Return value 
+    // The index of the first occurrence of searchValue, or -1 if not found.
+
+    // Requirements 
+
+    // 1. It should accept a searchValue , which will search for that value in the string that was called upon starting backwards. If exists it will return the index which start, otherwise will return -1.
+    // 2. It should have an optional fromIndex which will be the position that the search should start from.
+    // 3. If fromIndex is value is negative, the search will start at index 0.
+    // 4. If originalString is empty it should return -1.
+    // 5. If fromIndex value is greater or equal to the originalString.length the whole string will be searched.
+
+
+
+    function lastIndexOf(originalString, searchValue, fromIndex = originalString.length - 1) {
+
+        if (originalString === '') {
+            return -1;
+        }
+
+        let searchValueFirstChar = searchValue[0];
+        let searchValueLength = searchValue.length;
+        let match = 0;
+
+
+        if (fromIndex < 0) {
+
+            fromIndex = 0;
+        }
+        for (let i = fromIndex; i >= 0; i--) {
+            if (originalString[i] === searchValueFirstChar) {
+                for (let counter = 0, j = i; counter < searchValueLength; counter++ , j++) {
+                    if (originalString[j] === searchValue[counter]) {
+                        match++;
+                    } else {
+                        match = 0;
+                        break;
+                    }
+                }
+                if (match === searchValue.length) {
+                    return i;
+                }
+            }
+
+
+        }
+        return -1;
+    }
+
+    tests({
+
+
+        '1. It should accept a searchValue , which will search for that value in the string that was called upon starting backwards. If exists it will return the index which start, otherwise will return -1.': function() {
+            let lastIndexOfReturn = lastIndexOf('javascript is love javascript', 'javascript');
+            let lastIndexOfReturn1 = lastIndexOf('test this test is a test', 'test');
+            let lastIndexOfReturn2 = lastIndexOf('ab ba a b a bb bb aaaa aaaa b c d e a b e a aa aa abb a c la e aba #@ a', 'a');
+            let lastIndexOfReturn3 = lastIndexOf('b c  d e f g', 'a');
+
+            eq(lastIndexOfReturn, 19);
+            eq(lastIndexOfReturn1, 20);
+            eq(lastIndexOfReturn2, 70);
+            eq(lastIndexOfReturn3, -1);
+        },
+
+        '2. It should have an optional fromIndex which will be the position that the search should start from.': function() {
+            let lastIndexOfReturn = lastIndexOf('this is a test of the test', 'test', 15);
+            let lastIndexOfReturn1 = lastIndexOf('this is a test of the test', 'test', 0);
+            let lastIndexOfReturn2 = lastIndexOf('this is a test of a the test', 'a', 9);
+
+            eq(lastIndexOfReturn, 10);
+            eq(lastIndexOfReturn1, -1);
+            eq(lastIndexOfReturn2, 8);
+        },
+
+
+        '3. If fromIndex is value is negative, the search will start at index 0.': function() {
+            let lastIndexOfReturn = lastIndexOf('love javascript', 'love', -15);
+            eq(lastIndexOfReturn, 0);
+        },
+
+        '4. If originalString is empty it should return -1.': function() {
+            let lastIndexOfReturn = lastIndexOf('');
+            eq(lastIndexOfReturn, -1);
+        },
+
+        '5. If fromIndex value is greater or equal to the originalString.length the whole string will be searched.': function() {
+            let lastIndexOfReturn = lastIndexOf('test', 't', 25);
+            eq(lastIndexOfReturn, 3);
+        },
+
+
+
+    });
+</script>
