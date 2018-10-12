@@ -1,0 +1,91 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // The padStart() method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length. The padding is applied from the start (left) of the current string.
+
+
+    // Function signature 
+    // padEnd(string, targetLength, [, padString]);
+
+    // Function Parameters 
+    // targetLength -> The length of the resulting string once the current string has been padded. 
+    // optional padString -> The string to pad the current string with.
+
+    // Return value 
+    // A String of the specified length with the pad string applied at the start of the current string.
+
+
+    // Requirements 
+    // 1. It should accept a targetLength as first argument of the function , and it will return a new string with empty spaces at the begining of the string til newString is equal to the targetLength.
+    // 2. It should return the originalString if the value of stringLength is less than the origianlString.length.
+    // 3. It should accept an optional padString as the second argument of the function , which will be the string to be attached to the start of the originalString.
+    // 5. It should not modified the string that was called upon.
+
+    function padStart(originalString, targetLength, padString) {
+        let newString = '';
+        let originalStringLength = originalString.length;
+
+        if (targetLength < originalString.length) {
+            return originalString;
+        }
+
+        for (let i = 0; i < targetLength; i++) {
+            if (arguments.length < 3) {
+                if (i === targetLength - originalStringLength) {
+                    for (let j = 0; j < originalStringLength; j++) {
+                        newString += originalString[j];
+                        i++;
+                    }
+                } else {
+                    newString += ' ';
+                }
+            } else {
+                if (i === targetLength - originalStringLength) {
+                    for (let j = 0; j < originalStringLength; j++) {
+                        newString += originalString[j];
+                        i++;
+                    }
+                } else {
+                    newString += padString[i];
+                }
+            }
+        }
+
+        return newString;
+    }
+
+    tests({
+
+
+        '1. It should accept a targetLength as first argument of the function , and it will return a new string with empty spaces at the begining of the string til newString is equal to the targetLength.': function () {
+            let padStartReturn = padStart('javascript', 20);
+
+            eq(padStartReturn, "          javascript")
+        },
+
+        '2. It should return the originalString if the value of targetLength is less than the originalString.length.': function () {
+            let originalString = 'test';
+            let padStartReturn = padStart(originalString, 2);
+
+            eq(padStartReturn === originalString, true);
+        },
+
+        '3. It should accept an optional padString as the second argument of the function , which will be the string to be attached to the start of the originalString.': function () {
+            let padStartReturn = padStart('javascript', 20, 'javascript');
+
+            eq(padStartReturn, 'javascriptjavascript')
+        },
+
+        '4. It should not modified the string that was called upon.': function () {
+            let originalString = 'javascript';
+            let padStartReturn = padStart('originalString', 20);
+
+            eq(originalString.length, 10);
+            eq(originalString, 'javascript');
+        },
+
+
+    });
+</script>

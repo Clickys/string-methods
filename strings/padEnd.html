@@ -1,0 +1,121 @@
+<script src="../tinytest.js"></script>
+<script>
+    'use strict'
+    // Main Objective
+    // The includes() method determines whether one string may be found within another string, returning true or false as appropriate.
+
+    // Function signature 
+    // includes(string, searchString, [, position]);
+
+    // Function Parameters 
+    // searchString -> a string to be searched for within this string.
+    // position -> optional index which is the position within the string at which to begin searching for. (defaults 0)
+
+    // Return value 
+    // true if the search string is found anywhere within the given string otherwise false.
+
+
+
+
+    // Requirements 
+
+    // 1. It should return a boolean.
+    // 2. It should accept a searchString as first argument and return true if exists in the string that was called upon otherwise false.
+    // 3. It should accept an optional position(index) as second argument which indicate where the search should start from.
+    // 4. If no searchString provided it should return false.
+    // 5. If an empty string is provided it should return true.
+
+
+    //'This is javascript',  'ipt' 
+    function includes(string, searchString, indexToStart = 0) {
+        if (arguments.length === 0) {
+
+            return false;
+        }
+        if (arguments.length > 1) {
+            let searchStringLen = searchString.length;
+            let searchStringFirstChar = searchString[0];
+            let toMatch = 0;
+
+            if (searchString === '') {
+                return true;
+            }
+
+            for (let i = indexToStart; i < string.length; i++) {
+                if (string[i] === searchStringFirstChar) {
+                    for (let c = 0, j = i; c < searchStringLen; j++ , c++) {
+                        if (string[j] !== searchString[c]) {
+                            toMatch = 0;
+                            break;
+                        }
+                        toMatch++;
+
+                    }
+                }
+
+                if (toMatch === searchString.length) {
+                    return true;
+                }
+            }
+        }
+
+
+
+
+        return false;
+
+
+
+    }
+
+    tests({
+
+        '1. It should return a boolean.': function() {
+            let includesReturnValue = includes();
+            eq(typeof includesReturnValue, 'boolean');
+        },
+
+        '2. It should accept a searchString as first argument and return true if exists in the string that was called upon otherwise false.': function() {
+            let testString = 'Javascript';
+            let testString1 = 'JaVASCRipt';
+            let includesReturnValue = includes(testString, 'ipt');
+            let includesReturnValue1 = includes(testString, '43');
+            let includesReturnValue2 = includes(testString, 't');
+            let includesReturnValue3 = includes(testString1, 'vas');
+            let includesReturnValue4 = includes(testString1, 'VAS');
+            let includesReturnValue5 = includes(testString1, 'VASCR');
+
+            eq(includesReturnValue, true);
+            eq(includesReturnValue1, false);
+            eq(includesReturnValue2, true);
+            eq(includesReturnValue3, false);
+            eq(includesReturnValue4, true);
+            eq(includesReturnValue5, true);
+        },
+
+        '3. It should accept an optional position(index) as second argument which indicate where the search should start from.': function() {
+            let testString = 'Javascript';
+
+            let includesReturnValue = includes(testString, 'Java', 1);
+            let includesReturnValue1 = includes(testString, 'a', 4);
+
+            eq(includesReturnValue, false);
+            eq(includesReturnValue1, false);
+        },
+
+        '4. If no searchString provided it should return false.': function() {
+            let includesReturnValue = includes('Javascript');
+
+            eq(includesReturnValue, false);
+        },
+
+        '5. If an empty string is provided it should return true.': function() {
+
+            let includesReturnValue = includes('Javascript', '');
+            eq(includesReturnValue, true);
+
+        },
+
+
+    });
+</script>

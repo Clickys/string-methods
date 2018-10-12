@@ -12,8 +12,8 @@ String Methods
 -   [x] String.prototype.concat()
 -   [x] String.prototype.endsWith()
 -   [x] String.prototype.includes()
--   [] String.prototype.indexOf()
--   [] String.prototype.lastIndexOf()
+-   [x] String.prototype.indexOf()
+-   [x] String.prototype.lastIndexOf()
 -   [] String.prototype.match()
 -   [] String.prototype.repeat()
 -   [] String.prototype.replace()
@@ -27,6 +27,8 @@ String Methods
 -   [] String.prototype.trimEnd()
 -   [] String.prototype.trimStart()
 -   [] String.prototype.valueOf()
+-   [x] String.prototype.padEnd()
+-   [x] String.prototype.padStart()
 
 ## Getting Started
 
