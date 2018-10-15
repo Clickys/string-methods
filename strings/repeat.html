@@ -1,0 +1,97 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+    // The repeat() method constructs and returns a new string which contains the specified number of copies of the string on which it was called, concatenated together.
+
+    // Function signature 
+    // repeat(originalString, count);
+
+    // Function Parameters 
+    // count -> An integer between 0 and +∞: [0, +∞), indicating the number of times to repeat the string in the newly-created string that is to be returned.
+
+    // Return value 
+    // A new string containing the specified number of copies of the given string.
+
+
+    // Requirements 
+    // 1. It should return a new string.
+    // 2. It should accept a count as first function argument which is the times that the originalString should be repeated and return the newly created string.
+    // 3. If no count provided it should return an empty string.
+    // 4. If repeat count is negative it should throw a RangeError.
+    // 5. It should not modify the string that was called upon.
+
+    function repeat(originalString, count = 1) {
+        let totalCount = originalString.length * count;
+        let originalStringLength = originalString.length;
+        let repeatString = '';
+
+        if (count < 0) {
+            throw new RangeError('Invalid count value');
+        }
+
+        if (arguments.length < 2) {
+            return '';
+        }
+
+        for (let i = 0, j = 0; i < totalCount; i++) {
+            if (j === originalStringLength) {
+                j = 0;
+            }
+            repeatString += originalString[j];
+            j++;
+
+        }
+        return repeatString;
+    }
+
+
+    tests({
+
+
+        '1. It should return a new string and empty string if count is not provided.': function() {
+            let repeatReturn = repeat('test');
+
+            eq(repeatReturn, '');
+        },
+
+
+        '2. It should accept a count as first function argument which is the times that the originalString should be repeated and return the newly created string.': function() {
+            let repeatReturn = repeat('test', 2);
+            let repeatReturn1 = repeat('test', 25);
+
+            eq(repeatReturn, 'testtest');
+            eq(repeatReturn1, "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest");
+        },
+
+
+        '3. If no count provided it should return an empty string.': function() {
+            let repeatReturn = repeat('javascript');
+
+            eq(repeatReturn, '');
+        },
+
+
+        '4. If repeat count is negative it should throw a RangeError.': function() {
+            try {
+                repeat('javascript', -10);
+            } catch (e) {
+                eq(e instanceof RangeError, true);
+                eq(e, 'RangeError: Invalid count value');
+            }
+        },
+
+
+        '5. It should not modify the string that was called upon.': function() {
+            let originalString = 'javascript';
+            let repeatReturn = repeat(originalString, 5);
+
+            eq(originalString, 'javascript');
+        },
+
+
+
+
+    });
+</script>
