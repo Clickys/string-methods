@@ -1,0 +1,147 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+        //  The substring() method returns the part of the string between the start and end indexes, or to the end of the string.
+
+    // Function signature
+        //  substring(originalString, indexToStart[, indexToEnd ])
+
+    // Function Parameters
+        // indexToStart -> The index of the first character to include in the returned substring.
+        // indexToEnd -> Optional. The index of the first character to exclude from the returned substring.
+
+
+    // Return value
+        // A new string containing the specified part of the given string.
+
+    // Requirements
+        // 1. It should return  a string.
+        // 2. It should have an argument indexToStart that will be the first character to include in the returned substring.
+        // 3. It should have an indexToEnd as second argument that will extract character to that index but the character at indexToEnd will not included.
+        // 4. If indexToStart is equal to indexToEnd it should return an empty string.
+        // 5. If indexToEnd is omitted, it should extract characters to the end of the string.
+        // 6. If indexToStart is greater than indexToEnd the substring swap the two arguments.
+        // 7. If indexToStart is negative number is treated as it if were 0.
+        // 8. If indexToStart is greater than originalString.length is treaded as if were originalString.length.
+        // 9. If indexToEnd is negative number is treated as it if were 0.
+        // 10. If indexToEnd is negative number is treaded as t if were originalString.length.
+        // 11. If any argument value is NaN is treated as if it were 0.
+
+    function substring(originalString, indexToStart = 0, indexToEnd) {
+        let newString = '';
+
+        if (isNaN(indexToStart)) {
+            indexToStart = 0;
+        }
+
+        if (indexToStart < 0) {
+            indexToStart = 0;
+        }
+
+        if (indexToStart === indexToEnd) {
+            return newString;
+        }
+        if (indexToEnd) { // if indexToEnd exist
+
+            if (isNaN(indexToEnd)) {
+                indexToEnd = 0;
+            }
+
+            if (indexToEnd < 0) {
+                indexToEnd = 0;
+            }
+
+            if (indexToEnd > originalString.length) {
+                indexToEnd = originalString.length;
+            }
+
+            if (indexToStart > indexToEnd) {
+                [indexToStart, indexToEnd] = [indexToEnd, indexToStart] // destructuring swap values.
+            }
+        } else {
+            indexToEnd = originalString.length;
+        }
+
+        for (let i = indexToStart; i < indexToEnd; i++) {
+            newString += originalString[i];
+        }
+
+
+        return newString;
+    }
+
+    tests({
+
+        '1. It should return  a string.': function() {
+            let substringReturn = substring('javascript');
+            eq(typeof substringReturn, 'string');
+        },
+
+        '2. It should have an argument indexToStart that will be the first character to include in the returned substring.': function() {
+            let substringReturn = substring('javascript', 4);
+            eq(substringReturn, 'script');
+        },
+
+        '3. It should have an indexToEnd as second argument that will extract character to that index but the character at indexToEnd will not included.': function() {
+            let substringReturn = substring('i love javascript', 2, 6);
+
+            eq(substringReturn, 'love');
+            eq(substringReturn.length, 4);
+        },
+
+        '4. If indexToStart is equal to indexToEnd it should return an empty string.': function() {
+            let substringReturn = substring('i love javascript', 2, 2);
+
+            eq(substringReturn, '');
+
+        },
+
+        '5. If indexToEnd is omitted, it should extract characters to the end of the string.': function() {
+            let substringReturn = substring('i love javascript', 2);
+
+            eq(substringReturn, 'love javascript');
+        },
+
+        '6. If indexToStart is greater than indexToEnd the substring swap the two arguments.': function() {
+            let substringReturn = substring('i love javascript', 7, 2);
+
+            eq(substringReturn, 'love ');
+            eq(substringReturn.length, 5);
+        },
+        '7. If indexToStart is negative number is treated as it if were 0.': function() {
+            let substringReturn = substring('javascript', -10);
+            eq(substringReturn, 'javascript');
+        },
+
+        '8. If indexToStart is greater than originalString.length is treaded as if were originalString.length.': function() {
+            let substringReturn = substring('test', 5);
+            eq(substringReturn, '');
+        },
+
+        '9. If indexToEnd is negative number is treated as it if were 0.': function() {
+            let substringReturn = substring('test', 1, -2);
+            eq(substringReturn, 't');
+
+        },
+
+        '10. If indexToEnd is greater than originaString.length is treaded as if were originalString.length.': function() {
+            let substringReturn = substring('javascript', 1, 11);
+            eq(substringReturn, 'avascript');
+        },
+
+        '11. If any argument value is NaN is treated as if it were 0.': function() {
+            let substringReturn = substring('i love javascript', 'javascript');
+            let substringReturn1 = substring('i love javascript', 2, 'javascript');
+
+            eq(substringReturn, 'i love javascript');
+            eq(substringReturn1, 'i ');
+        }
+
+
+
+
+
+    }, 'String.prototype.substring');
+</script>

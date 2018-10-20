@@ -1,0 +1,71 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+        // The startsWith() method determines whether a string begins with the characters of a specified string, returning true or false as appropriate.
+
+    // Function signature
+        // startsWith(originalString, searchString, [, position])
+
+    // Function Parameters
+        // searchString -> The characters to be searched for at the start of this string.
+        // position -> The position in this string at which to begin searching for searchString; defaults to 0.
+
+
+    // Return value
+        // true if the given characters are found at the beginning of the string; otherwise, false.
+
+
+    // Requirements
+        // 1. It should search the originalString if it start with a specific character or a string and return true of false.
+        // 2. It should have an optional position as second argument at which index it should start search for the searchString.
+
+    function startsWith(originalString, searchString, positionToStart = 0) {
+        let searchStringLength = searchString.length;
+        let match = 0;
+
+        for (let i = positionToStart; i < originalString.length; i++) {
+            if (originalString[positionToStart] === searchString[0]) {
+                for (let j = 0; j < searchStringLength; j++) {
+                    if (originalString[positionToStart] === searchString[j]) {
+                        positionToStart++;
+                        match++;
+                    }
+                }
+            }
+            if (match === searchStringLength) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    tests({
+
+        '1. It should search the originalString if it start with a specific character or a string and return true of false.': function () {
+            let startsWithReturn = startsWith('javascript', 'java');
+            let startsWithReturn1 = startsWith('javascript', 'j');
+            let startsWithReturn2 = startsWith('javascript', 'jov');
+
+            eq(startsWithReturn, true);
+            eq(startsWithReturn1, true);
+            eq(startsWithReturn2, false);
+        },
+
+        '2. It should have an optional position as second argument at which index it should start search for the searchString.': function () {
+            let startsWithReturn = startsWith('javascript', 'java', 4);
+            let startsWithReturn1 = startsWith('javascript', 'java', 0);
+            let startsWithReturn2 = startsWith('abcdefghjklmnop', 'd', 4);
+            let startsWithReturn3 = startsWith('abcdefghjklmnop', 'd', 3);
+
+            eq(startsWithReturn, false);
+            eq(startsWithReturn1, true);
+            eq(startsWithReturn2, false);
+            eq(startsWithReturn3, true);
+        },
+
+
+
+    });
+</script>
