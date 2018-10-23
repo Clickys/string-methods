@@ -1,0 +1,50 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+        // The trimStart() method removes whitespace from the end of a string. trimLeft() is an alias of this method.
+
+    // Function signature
+        // trimStart();
+        // trimLeft();
+
+    // Function Parameters
+        // no parameters
+
+    // Return value
+        // A new string representing the calling string stripped of whitespace from its (left) end.
+
+
+    // Requirements
+        // 1. It should remove white spaces at the start of a string and return a new string without white space at the start.
+
+
+    function trimStart(originalString) {
+        let trimStartPosition = 0;
+        let trimStartString = '';
+
+        while(originalString[trimStartPosition] === ' ') {
+            trimStartPosition++;
+        }
+
+        for (let i = trimStartPosition; i < originalString.length; i++) {
+            trimStartString += originalString[i];
+        }
+
+        return trimStartString;
+    }
+
+    tests({
+
+        '1. It should remove white spaces at the end of a string and return a new string without white space at the end.': function() {
+            debugger;
+           let trimStartReturn = trimStart('  javascript ');
+           eq(trimStartReturn.length, 11);
+           eq(trimStartReturn, 'javascript ');
+        },
+
+
+
+    }, 'String.prototype.trimStart');
+</script>

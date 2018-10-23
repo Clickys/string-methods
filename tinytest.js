@@ -38,19 +38,22 @@
  * MIT License. See https://github.com/joewalnes/jstinytest/
  */
 const simpleTestHelper = {
-    renderTestingCasesToDom: function(tests, failures) {
+    renderTestingCasesToDom: function(tests, failures, testTitle) {
         let numberOfTestCases = Object.keys(tests).length;
+        let testingCaseTitle = `Testing Case: ${testTitle}`;
         let templateString = `Ran ${numberOfTestCases} tests: ${numberOfTestCases -
-            failures} successes, ${failures} failures`;
-
-        let element = document.createElement('h1');
+                                failures} successes, ${failures} failures`;
+        let title = document.createElement('h2');
+        let element = document.createElement('h2');
+        title.textContent = testingCaseTitle;
         element.textContent = templateString;
+        document.body.appendChild(title);
         document.body.appendChild(element);
     }
 };
 
 const TinyTest = {
-    run: function(tests) {
+    run: function(tests, testTitle) {
         let failures = 0;
         for (let testName in tests) {
             let testAction = tests[testName];
@@ -74,9 +77,8 @@ const TinyTest = {
         setTimeout(function() {
             // Give document a chance to complete
             if (window.document && document.body) {
-                document.body.style.backgroundColor =
-                    failures == 0 ? '#99ff99' : '#ff9999';
-                simpleTestHelper.renderTestingCasesToDom(tests, failures);
+                document.body.style.backgroundColor = failures == 0 ? '#99ff99' : '#ff9999';
+                simpleTestHelper.renderTestingCasesToDom(tests, failures, testTitle);
             }
         }, 0);
     },

@@ -1,0 +1,48 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+        // The trimEnd() method removes whitespace from the end of a string. trimRight() is an alias of this method.
+
+    // Function signature
+        // trimEnd();
+        // trimRight();
+
+    // Function Parameters
+        // no parameters
+
+    // Return value
+        // A new string representing the calling string stripped of whitespace from its (right) end.
+
+
+    // Requirements
+        // 1. It should remove white spaces at the end of a string and return a new string without white space at the end.
+
+
+    function trimEnd(originalString) {
+        let trimEndLength = originalString.length - 1;
+        let trimEndString = '';
+
+        while(originalString[trimEndLength] === ' ') {
+            trimEndLength--;
+        }
+
+        for (let i = 0; i <= trimEndLength; i++) {
+            trimEndString += originalString[i];
+        }
+
+        return trimEndString;
+    }
+
+    tests({
+
+        '1. It should remove white spaces at the end of a string and return a new string without white space at the end.': function() {
+           let trimEndReturn = trimEnd('    javascript             ');
+           eq(trimEndReturn, '    javascript');
+        },
+
+
+
+    }, 'String.prototype.trimEnd');
+</script>

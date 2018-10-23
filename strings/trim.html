@@ -1,0 +1,74 @@
+<script src="../tinytest.js"></script>
+<script>
+
+    'use strict'
+    // Main Objective
+        // The trim() method removes whitespace from both ends of a string. Whitespace in this context is all the whitespace characters (space, tab, no-break space, etc.) and all the line terminator characters (LF, CR, etc.).
+
+    // Function signature
+        // trim();
+
+    // Function Parameters
+        // no parameters
+
+    // Return value
+        // A new string representing the calling string stripped of whitespace from both ends.
+
+
+    // Requirements
+        // 1. It should remove white spaces at the begining of a string and return a new string without white space at the begining.
+        // 2. It should remove white spaces at the end of a string and return a new string without white space at the end.
+        // 3. It should remove any white spaces at the begining/end of a string and return a new string without any white space at the begining/end.
+
+
+    function trim(originalString) {
+        let trimString = '';
+        let endIteration = originalString.length - 1;
+        let i = 0;
+
+        if (i === 0) {
+            while(originalString[i] === ' ') {
+                i++;
+            }
+        }
+
+        if ( originalString[endIteration] === ' ') {
+            while(originalString[endIteration] === ' ') {
+                endIteration--;
+            }
+        }
+
+        for (i; i <= endIteration; i++) {
+            trimString += originalString[i];
+        }
+
+        return trimString;
+    }
+
+    tests({
+
+        '1. It should remove white spaces at the begining of a string and return a new string without white space at the begining.': function() {
+            let trimReturn = trim('  javascript');
+
+            eq(trimReturn, 'javascript');
+            eq(trimReturn.length, 10);
+        },
+
+        '2. It should remove white spaces at the end of a string and return a new string without white space at the end.': function() {
+            let trimReturn = trim('javascript                                         ');
+
+            eq(trimReturn, 'javascript');
+            eq(trimReturn.length, 10);
+
+        },
+
+        '3. It should remove any white spaces at the begining/end of a string and return a new string without any white space at the begining/end.': function() {
+            let trimReturn = trim('                         javascript                                         ');
+
+            eq(trimReturn, 'javascript');
+            eq(trimReturn.length, 10);
+        },
+
+
+    }, 'String.prototype.trim');
+</script>
